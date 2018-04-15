@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,6 +35,22 @@ public class Server {
     private void talkWithClient(Socket socket) {
         // communication with client
         logger.info("Client connected... Talking with client");
+        Thread clientThread = new Thread(() -> {
+            try {
+                Worker worker = new Worker(socket);
+                //TODO: implement request listener
+                //               worker.setRequestListener();
+                try {
+                    worker.startCommunication();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                logger.info("Error on client thread " + e.getMessage());
+            }
+        });
+        clientThread.start();
 
     }
 

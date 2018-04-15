@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Tic_Tac_Toe_SERVER" target="1.5" />
+      <module name="Tic_Tac_Toe_SERVER" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
