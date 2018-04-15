@@ -3,6 +3,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Server {
@@ -15,6 +16,7 @@ public class Server {
 
     // creates server with default port = 5000 and listens on localhost
     public Server() throws IOException {
+        logger.log(Level.INFO, String.format("Creating socket on address %s on port %d", DEFAULT_HOST_NAME, DEFAULT_PORT));
         this.serverSocket = new ServerSocket(DEFAULT_PORT, 10, InetAddress.getByName(DEFAULT_HOST_NAME));
     }
 
@@ -23,6 +25,7 @@ public class Server {
     }
 
     public void waitForConnection() throws IOException {
+        logger.info(String.format("Server is listening on port %d", serverSocket.getLocalPort()));
         Socket socket = null;
         while ((socket = serverSocket.accept()) != null) {
             talkWithClient(socket);
@@ -32,8 +35,10 @@ public class Server {
 
     private void talkWithClient(Socket socket) {
         // communication with client
+        logger.info("Client connected... Talking with client");
 
     }
+
     public void close() throws IOException {
         this.serverSocket.close();
     }
